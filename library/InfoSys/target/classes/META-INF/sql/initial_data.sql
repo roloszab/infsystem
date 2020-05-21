@@ -1,8 +1,69 @@
-INSERT INTO users (username, passwd) VALUES ('admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4');
-INSERT INTO userroles (username, role) VALUES ('admin', 'ADMIN');
-INSERT INTO status (status_name) VALUES ('avalible');
-INSERT INTO status (status_name) VALUES ('reserved');
-INSERT INTO status (status_name) VALUES ('disposed');
-INSERT INTO dvd (title, source_date, status_id) VALUES ('Pulp Fiction', '1997-05-21', SELECT id FROM status WHERE status_name = 'available');
-INSERT INTO dvd (title, source_date, status_id) VALUES ('Inglorious Basterds', '2009-05-20', SELECT id FROM status WHERE status_name = 'reserved');
-INSERT INTO dvd (title, source_date, status_id) VALUES ('Sin city', '2005-03-28', SELECT id FROM status WHERE status_name = 'disposed');
+INSERT INTO `library`.`member` (
+    `NAME`,
+    `PHONE_NUMBER`,
+    `AUTH_CARD_NUMBER`,
+    `ADDRESS`
+  )
+VALUES
+  (
+    "Fazekas Levente",
+    "+36303079443",
+    "TITKOS69",
+    "Right behind you"
+  );
+INSERT INTO `library`.`member` (
+    `NAME`,
+    `PHONE_NUMBER`,
+    `AUTH_CARD_NUMBER`,
+    `ADDRESS`
+  )
+VALUES
+  (
+    "Gipsz Jakab",
+    "0646366242",
+    "123456AB",
+    "1062 Budapest, Andrássy út 60."
+  );
+INSERT INTO `library`.`media` (`TITLE`, `AUTHOR`, `TYPE`, `SOURCE_DATE`)
+VALUES
+  (
+    "Pipacsok a buzaban",
+    "Mikszath Kalman",
+    "Novel",
+    "1897-03-12"
+  );
+INSERT INTO `library`.`media` (`TITLE`, `AUTHOR`, `TYPE`, `SOURCE_DATE`)
+VALUES
+  (
+    "Katanghy Menyhert",
+    "Mikszath Kalman",
+    "Novel",
+    "1896-11-14"
+  );
+INSERT INTO `library`.`media` (`TITLE`, `AUTHOR`, `TYPE`, `SOURCE_DATE`)
+VALUES
+  (
+    "Mikszath stilusa es nyelve",
+    "Rubinyi Mozes",
+    "Anthology",
+    "1910-01-23"
+  );
+INSERT INTO `library`.`rent` (`MEDIA_ID`, `MEMBER_ID`)
+VALUES
+  (
+    (
+      SELECT
+        `ID`
+      FROM `library`.`media`
+      WHERE
+        `AUTHOR` = "Mikszath Kalman"
+        AND `TITLE` = "Katanghy Menyhert"
+    ),
+    (
+      SELECT
+        `ID`
+      FROM `library`.`member`
+      WHERE
+        `AUTH_CARD_NUMBER` = "TITKOS69"
+    )
+  );
