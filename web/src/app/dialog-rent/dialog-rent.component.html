@@ -1,0 +1,51 @@
+<h1 mat-dialog-title><i class="material-icons inline-icon">account_box</i><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete'; else elseTemplate">
+        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Stock ID" matInput
+            [(ngModel)]="localData.stock.id" [formControl]="IDFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="IDFormControl.hasError('required')">
+            Stock ID is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member ID" matInput
+            [(ngModel)]="localData.member.id" [errorStateMatcher]="matcher">
+        <!-- <mat-error *ngIf="phoneFormControl.hasError('required')">
+            Phone number is <strong>required</strong>
+        </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member name" matInput
+            [(ngModel)]="localData.member.name" [errorStateMatcher]="matcher">
+        <!-- <mat-error *ngIf="idFormControl.hasError('required')">
+            ID card number is <strong>required</strong>
+        </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member ID Card number" matInput
+            [(ngModel)]="localData.member.idCardNumber" [errorStateMatcher]="matcher">
+        <!-- <mat-error *ngIf="addressFormControl.hasError('required')">
+            Adress is <strong>required</strong>
+        </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member Phone number" matInput
+            [(ngModel)]="localData.member.phoneNumber" [errorStateMatcher]="matcher">
+        <!-- <mat-error *ngIf="addressFormControl.hasError('required')">
+            Adress is <strong>required</strong>
+        </mat-error>  -->
+    </mat-form-field>
+
+    <ng-template #elseTemplate>
+        <h3>Sure to delete Member ID:{{localData.member.id}}<br> Stock ID: {{localData.stock.id}}?</h3>
+    </ng-template>
+</div>
+<div id="wrapper" mat-dialog-actions>
+    <button mat-button (click)="doAction()" mat-flat-button color="accent"
+        [disabled]="!rentValid ? 'disabled': null">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="primary">Cancel</button>
+</div>

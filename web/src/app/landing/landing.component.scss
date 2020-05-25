@@ -1,0 +1,38 @@
+@import "~@angular/material/theming";
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-pink);
+$app-warn: mat-palette($mat-red);
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+
+.company-policy-tile {
+    box-shadow: 10px 10px 5px rgba($accent, 0.05);
+}
+
+.company-policy-tile .company-policy {
+    padding: 30px;
+}
+.company-policy-tile .company-policy h1 {
+    color: $accent;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: xx-large;
+}
+
+.container {
+    padding: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+h2 .inline-icon {
+    vertical-align: bottom;
+    font-size: 32px !important;
+}
+
+h6 .inline-icon {
+    vertical-align: bottom;
+    font-size: 20px !important;
+}

@@ -1,0 +1,39 @@
+<h1 mat-dialog-title><i class="material-icons inline-icon">account_box</i><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete'; else elseTemplate">
+        <input (keyup)="checkStock()" (blur)="checkStock()" placeholder="{{action}} Title" matInput
+            [(ngModel)]="localData.title" [formControl]="titleFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="titleFormControl.hasError('required')">
+            Title is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkStock()" (blur)="checkStock()" placeholder="{{action}} Author" matInput
+            [(ngModel)]="localData.author" [formControl]="authorFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="authorFormControl.hasError('required')">
+            Author is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkStock()" (blur)="checkStock()" placeholder="{{action}} Type" matInput
+            [(ngModel)]="localData.type" [formControl]="typeFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="typeFormControl.hasError('required')">
+            Type is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkStock()" (blur)="checkStock()" placeholder="{{action}} State" matInput
+            [(ngModel)]="localData.state" [formControl]="stateFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="stateFormControl.hasError('required')">
+            State is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <ng-template #elseTemplate>
+        <h3>Sure to delete {{localData.name}} ID:{{localData.id}}?</h3>
+    </ng-template>
+</div>
+<div id="wrapper" mat-dialog-actions>
+    <button mat-button (click)="doAction()" mat-flat-button color="accent"
+        [disabled]="!stockValid ? 'disabled': null">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="primary">Cancel</button>
+</div>

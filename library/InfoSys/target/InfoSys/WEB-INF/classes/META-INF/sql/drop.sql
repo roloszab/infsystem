@@ -1,5 +1,7 @@
-drop table Users;
-drop table UserRoles;
-drop table DVD;
-drop table Status;
-drop table Customer;
+--SET
+--  FOREIGN_KEY_CHECKS = 0;
+--drop table rent;
+--drop table media;
+--drop table member;
+--SET
+--  FOREIGN_KEY_CHECKS = 1;
