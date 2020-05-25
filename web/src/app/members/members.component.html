@@ -1,0 +1,100 @@
+<div class="pd-parallax">
+    <div class="pd-title">
+        <h1>Members</h1>
+    </div>
+</div>
+<div class="table-container">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" #memberTable matSort multiTemplateDataRows class="mat-elevation-z8">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+
+            <!-- Phone number Column -->
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </th>
+                <td mat-cell *matCellDef="let row"> {{row.phoneNumber}} </td>
+            </ng-container>
+
+            <!-- ID card number Column -->
+            <ng-container matColumnDef="idCardNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Card Number </th>
+                <td mat-cell *matCellDef="let row"> {{row.idCardNumber}} </td>
+            </ng-container>
+
+            <!-- Address Column -->
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Adress </th>
+                <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" class="action-link">
+                    <button mat-icon-button (click)="openDialog('Update',element)" aria-label="Edit">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="openDialog('Delete',element)" aria-label="Edit">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let member" [attr.colspan]="displayedColumns.length">
+                    <div *ngIf="member.stock.length > 0" class="example-element-detail"
+                        [@detailExpand]="member == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="5%"
+                            fxLayoutAlign="center center" style="width: 100%;">
+                            <div class="stock-header" fxFlex="none">
+                                <h1>Rented items:</h1>
+                            </div>
+
+                            <div class="stock-card" fxFlex *ngFor="let stock of member.stock">
+                                <section class="mat-typography">
+                                    <h2>{{stock.title}} ID: {{stock.id}}</h2>
+                                    <h3>Type: {{stock.type}}</h3>
+                                    <h3>Status: {{stock.state}}</h3>
+                                    <h5>Author: {{stock.author}}</h5>
+                                    <h5>Source date: {{stock.sourceDate.toDateString()}}</h5>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let member; columns: displayedColumns;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === member"
+                (click)="expandedElement = expandedElement == member ? null : member">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</div>
+
+<div class="pd-parallax">
+
+</div>
+
+<button class="add-button" mat-fab aria-label="Add member" (click)="openDialog('Add',{})">
+    <mat-icon>add</mat-icon>
+</button>

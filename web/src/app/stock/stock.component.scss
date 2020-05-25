@@ -1,0 +1,102 @@
+@import "~@angular/material/theming";
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-pink);
+$app-warn: mat-palette($mat-red);
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: fit-content;
+}
+
+.table-container {
+    padding: 1%;
+}
+
+.pd-parallax {
+    background-image: linear-gradient(rgba($primary, 0.15), rgba($primary, 0.15)),
+        url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.adsttc.com%2Fmedia%2Fimages%2F57ed%2Fe8a2%2Fe58e%2Fce3d%2F8200%2F00b5%2Flarge_jpg%2F560_10_UZ_120324_N11.jpg%3F1475209362&f=1&nofb=1");
+}
+
+.add-button {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+}
+
+.example-element-description {
+    padding: 16px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
+}
+
+.stock-card {
+    box-shadow: 10px 10px 5px rgba($accent, 0.05);
+    margin: 1%;
+    padding: 2%;
+    text-align: center;
+}
+
+.stock-header {
+    width: 100% !important;
+    text-align: center;
+    padding: 0;
+}
+
+.stock-header h1 {
+    color: whitesmoke;
+    margin: 0;
+    padding: 1%;
+    background-color: rgba($accent, 0.8);
+    width: 100% !important;
+}

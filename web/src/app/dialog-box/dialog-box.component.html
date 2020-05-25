@@ -1,0 +1,39 @@
+<h1 mat-dialog-title><i class="material-icons inline-icon">account_box</i><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete'; else elseTemplate">
+        <input (keyup)="checkMember()" (blur)="checkMember()" placeholder="{{action}} Name" matInput
+            [(ngModel)]="localData.name" [formControl]="nameFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+            Name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkMember()" (blur)="checkMember()" placeholder="{{action}} Phone" matInput
+            [(ngModel)]="localData.phoneNumber" [formControl]="phoneFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="phoneFormControl.hasError('required')">
+            Phone number is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkMember()" (blur)="checkMember()" placeholder="{{action}} ID card number" matInput
+            [(ngModel)]="localData.idCardNumber" [formControl]="idFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="idFormControl.hasError('required')">
+            ID card number is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
+        <input (keyup)="checkMember()" (blur)="checkMember()" placeholder="{{action}} Address" matInput
+            [(ngModel)]="localData.address" [formControl]="addressFormControl" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="addressFormControl.hasError('required')">
+            Adress is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <ng-template #elseTemplate>
+        <h3>Sure to delete {{localData.name}} ID:{{localData.id}}?</h3>
+    </ng-template>
+</div>
+<div id="wrapper" mat-dialog-actions>
+    <button mat-button (click)="doAction()" mat-flat-button color="accent"
+        [disabled]="!memberValid ? 'disabled': null">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="primary">Cancel</button>
+</div>

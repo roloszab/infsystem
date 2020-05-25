@@ -1,0 +1,53 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/theming";
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-pink);
+$app-warn: mat-palette($mat-red);
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.pd-parallax {
+    position: relative;
+    background-image: linear-gradient(rgba($primary, 0.15), rgba($primary, 0.15)),
+        url("https://c.wallhere.com/photos/4b/40/light_architecture_modern_stairs_deutschland_design_europa_bright-1126278.jpg!d");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 350px;
+    margin: 0;
+    padding: 0;
+}
+.pd-parallax h1 {
+    border-radius: 10px;
+    background-color: rgba($accent, 0.8);
+    text-align: center;
+    color: white;
+    padding: 20px;
+    font-weight: 900 !important;
+}
+.pd-parallax h2 {
+    border-radius: 10px;
+    background-color: rgba($accent, 0.8);
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+.pd-parallax .pd-subtitle {
+    padding-top: 120px;
+    width: 80vw;
+    margin: auto;
+}
+.pd-parallax .pd-title {
+    padding-top: 150px;
+    width: 80vw;
+    margin: auto;
+}
