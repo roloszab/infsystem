@@ -75,14 +75,17 @@ public class MemberManager {
 	}
 	
 	public JsonObject memberToJsonObject(Member member) {
-		JsonObjectBuilder memberObject =  Json.createObjectBuilder().add("id", member.getId()).add("name", member.getName())
-				.add("phone", member.getPhoneNumber()).add("address", member.getAddress())
-				.add("authCard", member.getAuthCardNumber());
+		JsonObjectBuilder memberObject =  Json.createObjectBuilder()
+				.add("id", member.getId())
+				.add("name", member.getName())
+				.add("phoneNumber", member.getPhoneNumber())
+				.add("address", member.getAddress())
+				.add("idCardNumber", member.getAuthCardNumber());
 		JsonArrayBuilder stocks = Json.createArrayBuilder();
 		for (Stock stock : member.getStocks()) {
 			stocks.add(new StockManager().stockToJsonObject(stock));
 		}
-		memberObject.add("stocks", stocks);
+		memberObject.add("stock", stocks);
 		return memberObject.build();
 	}
 }

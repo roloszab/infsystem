@@ -71,10 +71,10 @@ public class StockManager {
 	public JsonObject stockToJsonObject(Stock stock) {
 		return Json.createObjectBuilder()
 				.add("id", stock.getId())
-				.add("title", stock.getTitle())
-				.add("author", stock.getAuthor())
-				.add("sourceDate", stock.getSourceDate().toString())
 				.add("type", stock.getType())
+				.add("author", stock.getAuthor())
+				.add("title", stock.getTitle())
+				.add("sourceDate", stock.getSourceDate().toString())
 				.add("state", stock.getStatus())
 				.build();
 	}
