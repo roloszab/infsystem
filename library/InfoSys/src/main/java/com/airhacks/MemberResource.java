@@ -30,6 +30,7 @@ public class MemberResource {
 		for (Member member: memberManager.getAll()) {
 			arrayBuilder.add(memberManager.memberToJsonObject(member));
 		}
+		System.out.println("Get all of them!");
 		return arrayBuilder.build();
 	}
 	
@@ -47,8 +48,8 @@ public class MemberResource {
 		Member member = new Member(
 					0, 
 					jsonObject.getString("name"), 
-					jsonObject.getString("phone"), 
-					jsonObject.getString("authCard"), 
+					jsonObject.getString("phoneNumber"), 
+					jsonObject.getString("idCardNumber"), 
 					jsonObject.getString("address")
 				);
 		String result = memberManager.add(member);
@@ -63,8 +64,8 @@ public class MemberResource {
 		Member member = new Member(
 					id, 
 					jsonObject.getString("name"), 
-					jsonObject.getString("phone"), 
-					jsonObject.getString("authCard"), 
+					jsonObject.getString("phoneNumber"), 
+					jsonObject.getString("idCardNumber"), 
 					jsonObject.getString("address")
 				);
 		String result = memberManager.update(member);

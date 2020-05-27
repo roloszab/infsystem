@@ -14,13 +14,25 @@ export class Stock {
         author?: string,
         title?: string,
         sourceDate?: Date,
-        state?: State
+        state?: number | State
     ) {
         this.id = id || null;
         this.type = type || Type.book;
         this.author = author || null;
         this.title = title || null;
         this.sourceDate = sourceDate || new Date();
-        this.state = state || State.available;
+        switch (state) {
+            case 0:
+                this.state = State.available;
+                break;
+            case 1:
+                this.state = State.reserved;
+                break;
+            case 2:
+                this.state = State.waste;
+                break;
+            default:
+                this.state = State.available;
+        }
     }
 }

@@ -41,7 +41,9 @@ public class RentResource {
 		JsonObject jsonObject = Json.createReader(inputStream).readObject();
 		JsonObject memberObject = jsonObject.getJsonObject("member");
 		JsonObject stockObject = jsonObject.getJsonObject("stock");
-		String result = rentManager.add(memberObject.getInt("id"), stockObject.getInt("id"));
+		String memberId = memberObject.getString("id");
+		String stockId = stockObject.getString("id");
+		String result = rentManager.add(Integer.valueOf(memberId), Integer.valueOf(stockId));
 		return Json.createObjectBuilder().add("result", result).build();
 	}
 	@DELETE

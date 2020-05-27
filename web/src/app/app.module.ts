@@ -14,6 +14,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { DialogBoxComponent } from "./dialog-box/dialog-box.component";
 import { DialogRentComponent } from "./dialog-rent/dialog-rent.component";
 import { DialogStockComponent } from "./dialog-stock/dialog-stock.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DialogStockComponent } from "./dialog-stock/dialog-stock.component";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

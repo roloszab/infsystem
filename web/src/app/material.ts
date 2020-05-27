@@ -11,6 +11,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { NgModule } from "@angular/core";
 
@@ -28,7 +29,8 @@ import { NgModule } from "@angular/core";
         MatTableModule,
         MatPaginatorModule,
         MatInputModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     exports: [
         MatButtonModule,

@@ -32,7 +32,6 @@ public class StockManager {
 			entityManager.getTransaction().begin();
 			stockToUpdate.setAuthor(stock.getAuthor());
 			stockToUpdate.setTitle(stock.getTitle());
-			stockToUpdate.setStatus(stock.getStatus());
 			stockToUpdate.setType(stock.getType());
 			stockToUpdate.setSourceDate(stock.getSourceDate());
 			entityManager.getTransaction().commit();
@@ -59,7 +58,8 @@ public class StockManager {
 		try {
 			Stock stock = entityManager.find(Stock.class, id);
 			entityManager.getTransaction().begin();
-			entityManager.remove(stock);
+			stock.setStatus(2);
+			stock.setMember(null);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -4,40 +4,22 @@
         <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Stock ID" matInput
             [(ngModel)]="localData.stock.id" [formControl]="IDFormControl" [errorStateMatcher]="matcher">
         <mat-error *ngIf="IDFormControl.hasError('required')">
-            Stock ID is <strong>required</strong>
+            is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="IDFormControl.hasError('pattern')">
+            Must be a <strong>number</strong>
         </mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" *ngIf="action != 'Delete';">
         <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member ID" matInput
             [(ngModel)]="localData.member.id" [errorStateMatcher]="matcher">
-        <!-- <mat-error *ngIf="phoneFormControl.hasError('required')">
-            Phone number is <strong>required</strong>
-        </mat-error> -->
-    </mat-form-field>
-
-    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
-        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member name" matInput
-            [(ngModel)]="localData.member.name" [errorStateMatcher]="matcher">
-        <!-- <mat-error *ngIf="idFormControl.hasError('required')">
-            ID card number is <strong>required</strong>
-        </mat-error> -->
-    </mat-form-field>
-
-    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
-        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member ID Card number" matInput
-            [(ngModel)]="localData.member.idCardNumber" [errorStateMatcher]="matcher">
-        <!-- <mat-error *ngIf="addressFormControl.hasError('required')">
-            Adress is <strong>required</strong>
-        </mat-error> -->
-    </mat-form-field>
-
-    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
-        <input (keyup)="checkRent()" (blur)="checkRent()" placeholder="{{action}} Member Phone number" matInput
-            [(ngModel)]="localData.member.phoneNumber" [errorStateMatcher]="matcher">
-        <!-- <mat-error *ngIf="addressFormControl.hasError('required')">
-            Adress is <strong>required</strong>
-        </mat-error>  -->
+        <mat-error *ngIf="IDFormControl.hasError('required')">
+            ID is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="IDFormControl.hasError('pattern')">
+            Must be a <strong>number</strong>
+        </mat-error>
     </mat-form-field>
 
     <ng-template #elseTemplate>

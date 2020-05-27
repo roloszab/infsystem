@@ -21,13 +21,6 @@
             Type is <strong>required</strong>
         </mat-error>
     </mat-form-field>
-    <mat-form-field class="input-field" *ngIf="action != 'Delete';">
-        <input (keyup)="checkStock()" (blur)="checkStock()" placeholder="{{action}} State" matInput
-            [(ngModel)]="localData.state" [formControl]="stateFormControl" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="stateFormControl.hasError('required')">
-            State is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
     <ng-template #elseTemplate>
         <h3>Sure to delete {{localData.name}} ID:{{localData.id}}?</h3>
     </ng-template>

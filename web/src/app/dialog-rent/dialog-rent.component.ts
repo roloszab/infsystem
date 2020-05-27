@@ -27,7 +27,8 @@ export class DialogRentComponent {
   rentValid = false;
 
   IDFormControl = new FormControl("", [
-    Validators.required
+    Validators.required,
+    Validators.pattern("^[0-9]+$")
   ]);
 
   constructor(
@@ -51,7 +52,8 @@ export class DialogRentComponent {
   checkRent() {
 
     if (
-      !this.IDFormControl.hasError("required")
+      !this.IDFormControl.hasError("required") &&
+      !this.IDFormControl.hasError("pattern")
     ) {
       this.rentValid = true;
     }

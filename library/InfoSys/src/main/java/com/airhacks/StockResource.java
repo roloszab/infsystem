@@ -41,13 +41,14 @@ public class StockResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public JsonObject addStock(InputStream inputStream) {
 		JsonObject jsonObject = Json.createReader(inputStream).readObject();
+		String state = jsonObject.getString("state");
 		Stock stock = new Stock(
 					0, 
 					jsonObject.getString("title"), 
 					jsonObject.getString("author"), 
 					jsonObject.getString("type"), 
-					LocalDate.parse(jsonObject.getString("type")),
-					jsonObject.getInt("state")
+					LocalDate.parse(jsonObject.getString("sourceDate")),
+					Integer.valueOf(state)
 				);
 		String result = stockManager.add(stock);
 		return Json.createObjectBuilder().add("result", result).build();
@@ -63,8 +64,8 @@ public class StockResource {
 					jsonObject.getString("title"), 
 					jsonObject.getString("author"), 
 					jsonObject.getString("type"), 
-					LocalDate.parse(jsonObject.getString("type")),
-					jsonObject.getInt("state")
+					LocalDate.parse(jsonObject.getString("sourceDate")),
+					0
 				);
 		String result = stockManager.update(stock);
 		return Json.createObjectBuilder().add("result", result).build();

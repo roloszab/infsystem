@@ -1,9 +1,9 @@
 import { Component, OnInit, Optional, Inject } from "@angular/core";
 import { FormControl, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { Stock } from 'src/models';
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { DialogBoxComponent } from "../dialog-box/dialog-box.component";
+import { Stock } from "src/models";
 
 export class StockErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,9 +31,6 @@ export class DialogStockComponent {
   typeFormControl = new FormControl("", [
     Validators.required
   ]);
-  stateFormControl = new FormControl("", [
-    Validators.required
-  ]);
 
   matcher = new StockErrorStateMatcher();
   stockValid = false;
@@ -52,8 +49,7 @@ export class DialogStockComponent {
     if (
       !this.titleFormControl.hasError("required") &&
       !this.authorFormControl.hasError("required") &&
-      !this.typeFormControl.hasError("required") &&
-      !this.stateFormControl.hasError("required")
+      !this.typeFormControl.hasError("required")
     ) {
       this.stockValid = true;
     }

@@ -39,8 +39,6 @@ import javax.ws.rs.Path;
 
 import javax.ws.rs.core.MediaType;
 
-import org.eclipse.persistence.internal.descriptors.ObjectBuilder;
-
 import model.Member;
 import model.Stock;
 

@@ -7,6 +7,8 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { FormControl } from "@angular/forms";
 import { DialogStockComponent } from "../dialog-stock/dialog-stock.component";
+import { DataService } from "../data.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector: "app-stock",
@@ -34,15 +36,18 @@ export class StockComponent implements OnInit {
     @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
-    constructor(public dialog: MatDialog) {
+    constructor(
+        public dialog: MatDialog,
+        private data: DataService,
+        private snackBar: MatSnackBar
+    ) {
         this.dataSource = new MatTableDataSource();
     }
 
     async ngOnInit(): Promise<void> {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.stocks = await this.getStock();
-        this.dataSource.data = this.stocks;
+        this.getStocks();
     }
 
     openDialog(action, obj) {
@@ -52,38 +57,27 @@ export class StockComponent implements OnInit {
             data: obj
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(async result => {
             if (result.event == "Add") {
-                this.addRowData(result.data);
+                result.data.state = "0";
+                result.data.sourceDate = new Date().toISOString().split("T")[0];
+                this.data.addStock(result.data).subscribe(r => { this.openSnackBar(r.result, "OK"); });
+                await this.delay(440);
+                this.getStocks();
             } else if (result.event == "Update") {
-                this.updateRowData(result.data);
+                const id = result.data.id;
+                const title = result.data.title;
+                const author = result.data.author;
+                const type = result.data.type;
+                const sourceDate = new Date(result.data.sourceDate).toISOString().split("T")[0];
+                this.data.updateStock({ id, title, author, type, sourceDate }).subscribe(r => { this.openSnackBar(r.result, "OK"); });
+                await this.delay(440);
+                this.getStocks();
             } else if (result.event == "Delete") {
-                this.deleteRowData(result.data);
+                this.data.deleteStock(result.data).subscribe(r => { this.openSnackBar(r.result, "OK"); });
+                await this.delay(440);
+                this.getStocks();
             }
-        });
-    }
-
-    addRowData(rowObj) {
-        const d = new Date();
-        const stock: Stock = new Stock(rowObj.id, rowObj.type, rowObj.author, rowObj.title, rowObj.date, rowObj.state);
-        this.dataSource.data.push(stock);
-        this.table.renderRows();
-    }
-    updateRowData(rowObj) {
-        this.dataSource.data = this.dataSource.data.filter((value, key) => {
-            if (value.id == rowObj.id) {
-                value.title = rowObj.title;
-                value.author = rowObj.author;
-                value.sourceDate = rowObj.sourceDate;
-                value.state = rowObj.state;
-                value.type = rowObj.type;
-            }
-            return true;
-        });
-    }
-    deleteRowData(rowObj) {
-        this.dataSource.data = this.dataSource.data.filter((value, key) => {
-            return value.id != rowObj.id;
         });
     }
 
@@ -96,15 +90,22 @@ export class StockComponent implements OnInit {
         }
     }
 
-    async getStock(): Promise<Stock[]> {
-        const stockArray: Stock[] = [];
-        stockArray.push(new Stock("1", Type.CD, "Fabri Zoltan", "Az otodik pecset", new Date(), State.available));
-        stockArray.push(new Stock("2", Type.CD, "Fabri Zoltan", "Az otodik pecset", new Date(), State.available));
-        stockArray.push(new Stock("3", Type.CD, "Fabri Zoltan", "Az otodik pecset", new Date(), State.reserved));
-        stockArray.push(new Stock("4", Type.CD, "Fabri Zoltan", "Az otodik pecset", new Date(), State.waste));
-        stockArray.push(new Stock("5", Type.book, "Puzser robert", "A zsidok szegyene", new Date(), State.waste));
-        stockArray.push(new Stock("6", Type.book, "Puzser robert", "A zsidok szegyene", new Date(), State.waste));
-        return stockArray;
+    async getStocks() {
+        await this.data.getStocks()
+            .subscribe(m => {
+                this.dataSource.data = m;
+            });
+    }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 4000,
+        });
+
+    }
+
+    private delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
 

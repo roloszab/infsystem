@@ -2,6 +2,7 @@ package businesslogic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -10,6 +11,7 @@ import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import model.Stock;
 import model.Member;
@@ -33,7 +35,8 @@ public class RentManager {
 			entityManager.getTransaction().begin();
 			if (stock.getStatus() == 1 || stock.getStatus() == 2)
 				throw new Exception("Renting reserved or waste media is not allowed!");
-			stock.setMember(entityManager.find(Member.class, memberID));
+			Member member = entityManager.find(Member.class, memberID);
+			stock.setMember(member);
 			stock.setStatus(1);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -45,12 +48,12 @@ public class RentManager {
 
 	public List<Rent> getAll() {
 		List<Rent> rents = new ArrayList<>();
-		Query query = entityManager.createQuery("SELECT DISTINCT m FROM Member m LEFT JOIN m.stocks s");
-		List<Member> members = query.getResultList();
-		for (Member member: members) {
-			for (Stock stock: member.getStocks()) {
-				rents.add(new Rent(member, stock));
-			}
+		TypedQuery<Stock> queryStocks = entityManager.createQuery("SELECT DISTINCT media FROM Stock media", Stock.class);
+		List<Stock> stocks = queryStocks.getResultList().stream().filter(s -> s.getMember() != null).collect(Collectors.toList());
+		for (Stock stock: stocks) {
+			Member tempMember = new Member();
+			tempMember = entityManager.find(Member.class, stock.getMember().getId());
+			rents.add(new Rent(tempMember, stock));
 		}
 		return rents;
 	}
